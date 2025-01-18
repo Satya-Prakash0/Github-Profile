@@ -8,7 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="light_green">#ABFC82</color>
+    <color name="light_green">#4C7E33</color>
+    <color name="dark_green">@color/light_green</color>
     <color name="light_pink">#E671DB</color>
     <color name="spark_green">#B5BD3B</color>
 
