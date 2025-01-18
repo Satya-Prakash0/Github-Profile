@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.satya.profilesearchapp.databinding.ItemRepoBinding
 import com.satya.profilesearchapp.domain.model.RepoUiModel
 
@@ -35,9 +36,13 @@ class RepoAdapter(
             binding.apply {
                 repoName.text = repo.name
                 repoId.text = repo.id.toString()
-                repoUrl.text = repo.repoUrl.toString()
+//                viewRepository.text = repo.repoUrl.toString()
 
-                // Set up click listener
+                Glide.with(root.context)
+                    .load(repo.profileUrl)
+                    .centerCrop()
+                    .into(repoIcon)
+
                 root.setOnClickListener {
                     listener.onItemClick(repo)
                 }

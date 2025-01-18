@@ -14,4 +14,5 @@
 
     <color name="bg_receiver">#E9C3ED</color>
     <color name="bg_sender">#E8EC72</color>
+    <color name="grey">#E0E0E0</color>
 </resources>

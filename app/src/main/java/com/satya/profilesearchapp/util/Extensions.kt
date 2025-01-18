@@ -8,7 +8,8 @@ fun Item.toEntity(): RepoEntity {
     return RepoEntity(
         id = id,
         name = name,
-        repoURL = owner.repoURL
+        repoURL = owner.repoURL,
+        profileURL = owner.profileURL
     )
 }
 
@@ -16,7 +17,8 @@ fun RepoEntity.toUiModel(): RepoUiModel {
     return RepoUiModel(
         id = id,
         name = name,
-        repoUrl = repoURL
+        repoUrl = repoURL,
+        profileUrl = profileURL
     )
 }
 
