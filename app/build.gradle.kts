@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -80,5 +81,9 @@ dependencies {
 
     implementation("androidx.fragment:fragment-ktx:1.8.5")
     implementation("androidx.fragment:fragment-compose:1.8.5")
+
+    // Views/Fragments integration
+    implementation("androidx.navigation:navigation-fragment:2.8.5")
+    implementation("androidx.navigation:navigation-ui:2.8.5")
 
 }

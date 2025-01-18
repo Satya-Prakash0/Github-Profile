@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -119,7 +121,7 @@ class MainFragment :
     }
 
     override fun onItemClick(repo: RepoUiModel) {
-//        val action = MainFragmentDirection.
-//        findNavController().navigate(action)
+        val action = MainFragmentDirections.actionMainFragmentToWebViewFragment(repo.repoUrl)
+        findNavController().navigate(action)
     }
 }

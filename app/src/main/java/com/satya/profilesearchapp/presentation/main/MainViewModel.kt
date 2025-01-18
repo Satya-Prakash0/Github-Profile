@@ -23,9 +23,6 @@ class MainViewModel @Inject constructor(
     private val _uiState = MutableLiveData<UiState<List<RepoUiModel>>>()
     val uiState: LiveData<UiState<List<RepoUiModel>>> = _uiState
 
-//    private val _searchQuery = MutableStateFlow("")
-//    val searchQuery: StateFlow<String> = _searchQuery
-
     fun loadRepositories() {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
