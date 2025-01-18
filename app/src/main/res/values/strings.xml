@@ -11,4 +11,5 @@
     <string name="url">URL: </string>
     <string name="https_github_com_example">https://github.com/example</string>
     <string name="view_repository">View Repository</string>
+    <string name="id">ID:</string>
 </resources>
