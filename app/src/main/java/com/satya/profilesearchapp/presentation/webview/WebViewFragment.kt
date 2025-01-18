@@ -42,7 +42,6 @@ class WebViewFragment : Fragment() {
             webView.webViewClient = object : WebViewClient() {
                 override fun onPageStarted(view: WebView?, url: String?, favicon: android.graphics.Bitmap?) {
                     super.onPageStarted(view, url, favicon)
-                    // Show loading indicator only if it's not already visible
                         progressBar.visibility = View.VISIBLE
                         webView.visibility = View.GONE
                 }

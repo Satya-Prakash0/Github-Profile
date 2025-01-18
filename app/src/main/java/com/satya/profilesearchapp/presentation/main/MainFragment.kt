@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -43,8 +42,6 @@ class MainFragment :
         setUpRecyclerView()
         observeUiState()
         setupSearch()
-
-        // Load repositories initially
         viewModel.loadRepositories()
     }
 
@@ -59,11 +56,10 @@ class MainFragment :
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                // Handle live text changes in the search view
                 if (!newText.isNullOrEmpty()) {
                     viewModel.searchRepository(newText)
                 } else {
-                    viewModel.loadRepositories() // Reset to full list if search query is cleared
+                    viewModel.loadRepositories()
                 }
                 return true
             }

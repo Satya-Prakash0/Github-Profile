@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">ProfileSearch App</string>
     <string name="title_activity_web_view">WebViewActivity</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile_search_app">Profile Search App</string>
+    <string name="search_repositories">Search repositories</string>
+    <string name="no_repository_item">No repository item found</string>
+    <string name="repository_name">Repository Name</string>
+    <string name="_123456">123456</string>
+    <string name="repo_id">ID: </string>
+    <string name="url">URL: </string>
+    <string name="https_github_com_example">https://github.com/example</string>
 </resources>

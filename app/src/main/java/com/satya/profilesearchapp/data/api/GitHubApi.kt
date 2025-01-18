@@ -1,7 +1,6 @@
 package com.satya.profilesearchapp.data.api
 
 import com.satya.profilesearchapp.data.model.GHRepo
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 

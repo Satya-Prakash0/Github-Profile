@@ -8,7 +8,6 @@
     android:padding="16dp"
     tools:context=".presentation.main.MainFragment">
 
-    <!-- Search View -->
     <androidx.cardview.widget.CardView
         android:id="@+id/searchCard"
         android:layout_width="0dp"
@@ -25,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:iconifiedByDefault="false"
-            android:queryHint="Search repositories"
+            android:queryHint="@string/search_repositories"
             android:background="@android:color/transparent"
             android:layout_margin="8dp"
             android:textColor="@color/black"
@@ -33,8 +32,6 @@
 
     </androidx.cardview.widget.CardView>
 
-
-    <!-- Progress Bar -->
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"
@@ -58,15 +55,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_repo" />
 
-    <!-- Empty State Text -->
-    <TextView
+    <!-- Empty State -->
+    <ImageView
         android:id="@+id/emptyStateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:contentDescription="@string/no_repository_item"
         android:visibility="gone"
-        android:text="No repositories found."
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:srcCompat="@drawable/no_repository_item"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

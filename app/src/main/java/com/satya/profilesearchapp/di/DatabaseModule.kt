@@ -1,8 +1,6 @@
 package com.satya.profilesearchapp.di
 
 import android.content.Context
-import androidx.room.Room
-import com.satya.profilesearchapp.data.api.GitHubApi
 import com.satya.profilesearchapp.data.db.RepoDao
 import com.satya.profilesearchapp.data.db.RepoDatabase
 import dagger.Module

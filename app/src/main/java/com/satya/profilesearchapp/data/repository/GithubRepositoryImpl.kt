@@ -8,9 +8,7 @@ import com.satya.profilesearchapp.domain.repository.GithubRepository
 import com.satya.profilesearchapp.util.toEntity
 import com.satya.profilesearchapp.util.toUiModel
 import javax.inject.Inject
-import javax.inject.Singleton
 
-//@Singleton
 class GithubRepositoryImpl @Inject constructor(
     private val api: GitHubApi,
     private val dao: RepoDao
@@ -18,7 +16,6 @@ class GithubRepositoryImpl @Inject constructor(
 
     override suspend fun getRepositories(): List<RepoUiModel> {
         return try {
-            // Try to get cached data first
             val cachedData = dao.getAllRepos()
             if (cachedData.isNotEmpty()) {
                 return cachedData.map { it.toUiModel() }
@@ -26,13 +23,10 @@ class GithubRepositoryImpl @Inject constructor(
 
             // If cache is empty, fetch from network
             val response = api.getUserRepository()
-            // List<RepoEntity>
 
-            // Update cache
-            val repoEntities = response.items.map { it.toEntity() } // Convert RepoItem to RepoEntity
-            val repoUiModels: List<RepoUiModel> = repoEntities.map { it.toUiModel() } // Convert RepoEntity to RepoUiModel
+            val repoEntities = response.items.map { it.toEntity() }
+            val repoUiModels: List<RepoUiModel> = repoEntities.map { it.toUiModel() }
 
-// Update cache
             dao.clearAll()
             dao.insertAll(repoEntities)
 
