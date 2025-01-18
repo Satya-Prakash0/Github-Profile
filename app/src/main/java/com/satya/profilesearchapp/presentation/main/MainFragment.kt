@@ -45,6 +45,9 @@ class MainFragment :
         viewModel.loadRepositories()
     }
 
+    /**
+     * Sets up the search functionality.
+     */
     private fun setupSearch() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -66,7 +69,9 @@ class MainFragment :
         })
     }
 
-
+    /**
+     * Configures the RecyclerView with adapter and layout manager.
+     */
     private fun setUpRecyclerView() {
         binding.recyclerView.apply {
             adapter = repoAdapter
@@ -75,6 +80,9 @@ class MainFragment :
         }
     }
 
+    /**
+     * Observes the UI state from the ViewModel to handle loading, success, and error states.
+     */
     private fun observeUiState() {
         viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
             when (uiState) {
@@ -93,6 +101,9 @@ class MainFragment :
         }
     }
 
+    /**
+     * Toggles the loading indicator visibility.
+     */
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.isVisible = isLoading
         if (isLoading) {
@@ -102,6 +113,9 @@ class MainFragment :
         }
     }
 
+    /**
+     * Updates the RecyclerView with a list of repositories or shows an empty state.
+     */
     private fun updateRecyclerView(repositories: List<RepoUiModel>) {
         if (repositories.isEmpty()) {
             binding.emptyStateText.isVisible = true
@@ -116,6 +130,9 @@ class MainFragment :
         Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
     }
 
+    /**
+     * Handles item click events and navigates to the WebViewFragment.
+     */
     override fun onItemClick(repo: RepoUiModel) {
         val action = MainFragmentDirections.actionMainFragmentToWebViewFragment(repo.repoUrl)
         findNavController().navigate(action)

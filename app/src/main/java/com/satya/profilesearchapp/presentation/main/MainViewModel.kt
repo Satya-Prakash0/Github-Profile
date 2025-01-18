@@ -18,9 +18,13 @@ class MainViewModel @Inject constructor(
     private val searchRepositoriesUseCase: SearchRepositoriesUseCase
 ) : ViewModel() {
 
+    // LiveData for managing UI state
     private val _uiState = MutableLiveData<UiState<List<RepoUiModel>>>()
     val uiState: LiveData<UiState<List<RepoUiModel>>> = _uiState
 
+    /**
+     * Loads repositories using the getRepositoriesUseCase and updates the UI state.
+     */
     fun loadRepositories() {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
@@ -33,6 +37,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Searches repositories using the searchRepositoriesUseCase and updates the UI state.
+     */
     fun searchRepository(query: String) {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
