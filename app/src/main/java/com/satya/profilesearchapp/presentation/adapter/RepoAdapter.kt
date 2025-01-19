@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.satya.profilesearchapp.databinding.ItemRepoBinding
 import com.satya.profilesearchapp.domain.model.RepoUiModel
 import com.satya.profilesearchapp.R
@@ -51,6 +52,7 @@ class RepoAdapter(
                     .load(repo.profileUrl)
                     .centerCrop()
                     .placeholder(R.drawable.baseline_person_24)
+                    .transition(DrawableTransitionOptions.withCrossFade())
                     .into(repoIcon)
 
                 root.setOnClickListener { listener.onItemClick(repo) }

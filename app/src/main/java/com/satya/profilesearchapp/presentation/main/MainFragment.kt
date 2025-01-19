@@ -17,6 +17,9 @@ import com.satya.profilesearchapp.databinding.FragmentMainBinding
 import com.satya.profilesearchapp.domain.model.RepoUiModel
 import com.satya.profilesearchapp.presentation.adapter.RepoAdapter
 import com.satya.profilesearchapp.util.UiState
+import com.satya.profilesearchapp.util.addItemAnimations
+import com.satya.profilesearchapp.util.fadeIn
+import com.satya.profilesearchapp.util.fadeOut
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -77,6 +80,7 @@ class MainFragment :
             adapter = repoAdapter
             layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            addItemAnimations() // Add animations to RecyclerView
         }
     }
 
@@ -118,11 +122,14 @@ class MainFragment :
      */
     private fun updateRecyclerView(repositories: List<RepoUiModel>) {
         if (repositories.isEmpty()) {
-            binding.emptyStateText.isVisible = true
-            binding.recyclerView.isVisible = false
+            binding.recyclerView.fadeOut()
+            binding.emptyStateText.fadeIn()
         } else {
-            binding.emptyStateText.isVisible = false
-            repoAdapter.submitList(repositories)
+            binding.emptyStateText.fadeOut()
+            binding.recyclerView.fadeIn()
+            repoAdapter.submitList(repositories) {
+                binding.recyclerView.scheduleLayoutAnimation()
+            }
         }
     }
 
