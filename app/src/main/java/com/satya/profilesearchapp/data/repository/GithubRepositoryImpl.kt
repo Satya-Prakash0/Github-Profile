@@ -5,6 +5,8 @@ import com.satya.profilesearchapp.data.api.GitHubApi
 import com.satya.profilesearchapp.data.db.RepoDao
 import com.satya.profilesearchapp.domain.model.RepoUiModel
 import com.satya.profilesearchapp.domain.repository.GithubRepository
+import com.satya.profilesearchapp.util.Constants.CACHE_EXPIRY_HOURS
+import com.satya.profilesearchapp.util.Constants.HOURS_TO_MILLIS
 import com.satya.profilesearchapp.util.toEntity
 import com.satya.profilesearchapp.util.toUiModel
 import javax.inject.Inject
@@ -23,15 +25,17 @@ class GithubRepositoryImpl @Inject constructor(
 ) : GithubRepository {
 
     /**
-     * Fetches a list of repositories.
-     *
-     * - First checks the local database for cached data.
-     * - If no cached data is available, fetches from the API, updates the cache, and returns the data.
-     *
-     * @return A list of RepoUiModel representing repositories.
+     * Fetches a list of repositories with cache management.
+     * - Checks and cleans expired cache
+     * - Returns cached data if valid
+     * - Fetches from API if cache is empty or expired
      */
     override suspend fun getRepositories(): List<RepoUiModel> {
         return try {
+
+            // Clean expired cache
+            cleanExpiredCache()
+
             val cachedData = dao.getAllRepos() // Fetch cached repositories
             if (cachedData.isNotEmpty()) {
                 return cachedData.map { it.toUiModel() }
@@ -67,5 +71,13 @@ class GithubRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             throw Exception("Failed to search repositories: ${e.message}")
         }
+    }
+
+    /**
+     * Removes expired cache entries
+     */
+    private suspend fun cleanExpiredCache() {
+        val expiryTime = System.currentTimeMillis() - (CACHE_EXPIRY_HOURS * HOURS_TO_MILLIS)
+        dao.deleteOldCache(expiryTime)
     }
 }
