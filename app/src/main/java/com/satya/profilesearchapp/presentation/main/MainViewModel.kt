@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.satya.profilesearchapp.domain.model.RepoUiModel
 import com.satya.profilesearchapp.domain.usecase.GetRepositoriesUseCase
 import com.satya.profilesearchapp.domain.usecase.SearchRepositoriesUseCase
+import com.satya.profilesearchapp.util.ErrorHandler
+import com.satya.profilesearchapp.util.Results
 import com.satya.profilesearchapp.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getRepositoriesUseCase: GetRepositoriesUseCase,
-    private val searchRepositoriesUseCase: SearchRepositoriesUseCase
+    private val searchRepositoriesUseCase: SearchRepositoriesUseCase,
+    private val errorHandler: ErrorHandler
 ) : ViewModel() {
 
     // LiveData for managing UI state
@@ -28,11 +31,11 @@ class MainViewModel @Inject constructor(
     fun loadRepositories() {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
-            try {
-                val repositories = getRepositoriesUseCase()
-                _uiState.value = UiState.Success(repositories)
-            } catch (e: Exception) {
-                _uiState.value = UiState.Error(e.message ?: "Unknown error occurred")
+            when (val result = getRepositoriesUseCase()) {
+                is Results.Success -> _uiState.value = UiState.Success(result.data)
+                is Results.Error -> _uiState.value = UiState.Error(
+                    errorHandler.getErrorMessage(result.exception)
+                )
             }
         }
     }
@@ -43,12 +46,12 @@ class MainViewModel @Inject constructor(
     fun searchRepository(query: String) {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
-             try {
-                 val repositories = searchRepositoriesUseCase(query)
-                 _uiState.value = UiState.Success(repositories)
-             } catch (e: Exception) {
-                 _uiState.value = UiState.Error(e.message ?: "Not Found")
-             }
+            when (val result = searchRepositoriesUseCase(query)) {
+                is Results.Success -> _uiState.value = UiState.Success(result.data)
+                is Results.Error -> _uiState.value = UiState.Error(
+                    errorHandler.getErrorMessage(result.exception)
+                )
+            }
         }
     }
 
